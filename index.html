@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上海地铁网络演示</title>
+    <!-- 引入外部css样式和d3库 -->
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/leftarea.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/bottom.css" rel="stylesheet">
+    <link href="css/map.css" rel="stylesheet">
+    <script src="lib/d3.min.js"></script>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+<!--   标题栏   -->
+<header id="header">
+    <div id="logo_area">
+        <img alt="logo.png" src="images/logo.png" id="logo">
+    </div>
+</header>
+<!--   网页主干  -->
+<div id="main">
+    <!--  左侧功能区域  -->
+    <section id="left_area">
+        <!--  功能栏   -->
+        <nav class="fun_nav clearfix">
+            <ul>
+                <li :class="{'now_use':act === 0}" @click="switch_board(0)">更改地图</li>
+                <li :class="{'now_use':act === 1}" @click="switch_board(1)">查询换乘</li>
+            </ul>
+        </nav>
+        <div class="fun_area">
+            <div class="change_map" v-if="act===0">
+                <!--增加站点操作-->
+                <div>
+                    <span>添加站点(经纬度范围)</span>
+                    经度: [120.51,122.12] <br>
+                    纬度: [30.40,31.53]
+                    <input type="text" placeholder="请输入站点的名称" v-model="node.name">
+                    <input type="number" placeholder="请输入站点的经度" v-model="node.lon">
+                    <input type="number" placeholder="请输入站点的纬度" v-model="node.lat">
+                    <button @click="add_node()">添加</button>
+                </div>
+                <!--删除站点操作-->
+                <div>
+                    <span>删除站点</span>
+                    <input type="text" placeholder="请输入站点的名称" v-model="node.name_del" required="required">
+                    <button @click="delete_node(node.name_del)">删除</button>
+                </div>
+                <!--增加线路操作-->
+                <div>
+                    <span>添加线路</span>
+                    <input type="text" placeholder="请输入线路名称" v-model="line.name">
+                    <span class="smaller_size">选择添加线路的颜色</span>
+                    <input type="color" v-model="line.color">
+                    <button @click="add_line()">添加</button>
+                </div>
+                <!--增加边操作-->
+                <div>
+                    <span>向线路添加边</span>
+                    <select v-model="select_line.name">
+                        <option v-for="line in lines" :value="line.name">
+                            {{line.name}}
+                        </option>
+                    </select>
+                    <input type="text" placeholder="请输入站点1名称" v-model="node1">
+                    <input type="text" placeholder="请输入站点2名称" v-model="node2">
+                    <button @click="add_edge_to_line()">添加</button>
+                </div>
+            </div>
+            <div class="query_map" v-if="act===1">
+                <div>
+                    <span>查看地铁线路</span>
+                    <select v-model="select_line.name">
+                        <option v-for="line in lines" :value="line.name">
+                            {{line.name}}
+                        </option>
+                    </select>
+                    <button @click="select_one_line()">查看</button>
+
+                    <span>搜索换乘方法</span>
+                    <input type="text" placeholder="请输入站点1名称" v-model="begin_node">
+                    <input type="text" placeholder="请输入站点2名称" v-model="end_node">
+                    <ul id="query_btns">
+                        <li>
+                            <button @click="show_info()">查看换乘指南</button>
+                            <button @click="show_path()">显示最短路径</button>
+                        </li>
+                    </ul>
+                    <div v-if="path.show===1">
+                        <div class="title-bar">换乘方案</div>
+                        <div class="scroll-box">
+                            <div class="content">(起点)
+                            <span v-for="items in path.detail" id="stations">{{ items.name }}
+                                <span v-for="line in items.of_line" id="lines">{{ line }},</span>
+                            </span> (终点)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 右侧地图区域  -->
+    <section class="right_area">
+        <svg id="subway_map"></svg>
+    </section>
+</div>
+<!--下方功能部分操作-->
+<section id="tab">
+    <ul class="tab_bar">
+        <li class="centered-buttons">
+            <button @click="big()"> size+</button>
+            <button @click="small()"> size-</button>
+            <button @click="clear()"> clear</button>
+            <button @click="reload()"> reload</button>
+        </li>
+    </ul>
+</section>
+<script src="js/templates.js"></script>
+<script src="js/d3tools.js"></script>
+<script src="js/functions.js"></script>
+
+</body>
+</html>

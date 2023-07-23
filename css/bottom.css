@@ -1,0 +1,32 @@
+#tab{
+    position: fixed;
+    bottom : 0;
+    width: 100%;
+    background-color: #5dc5f0;
+    height: 100px;
+    border: solid white 2px;
+}
+
+.tab_bra {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tab_bar li {
+    margin-right: 10px;
+}
+
+.tab_bar li:last-child {
+    margin-right: 0;
+}
+
+.centered-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.centered-buttons button {
+    margin: 0 10px;
+}

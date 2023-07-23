@@ -1,0 +1,20 @@
+#header {
+    position: relative;
+    height: 80px;
+    background-color: #148ec0;
+}
+
+#logo_area {
+    position: absolute;
+    left: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60px;
+    line-height: 60px;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+#logo {
+    height: 60px;
+}

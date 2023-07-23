@@ -1,0 +1,130 @@
+/*******左侧功能区********/
+#left_area {
+    position: absolute;
+    left: 0;
+    width: 400px;
+    height: 100%;
+    color: snow;
+    background-color: #5dc5f0;
+}
+
+.fun_nav {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 0;
+}
+
+.fun_nav ul li {
+    float: left;
+    width: 160px;
+    height: 35px;
+    text-align: center;
+    line-height: 30px;
+    color: snow;
+    cursor: pointer;
+    border-width: 2px;
+    border-style: solid;
+    border-color: snow;
+    border-image: initial;
+}
+
+.fun_nav .now_use {
+    color: snow;
+    background-color: #148ec0;
+}
+
+.fun_area {
+    position: relative;
+    width: 320px;
+    height: 800px;
+    margin: 0 auto;
+    border-width: 0 2px 2px;
+    border-style: solid solid solid;
+    border-color: white white white;
+    border-image: initial;
+    border-top: 0;
+}
+
+.fun_area span {
+    display: block;
+    padding: 5px 5px 5px;
+}
+
+.fun_area input {
+    display: block;
+    width: 200px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    margin: 5px 5px 5px;
+    padding: 0px 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    border-image: initial;
+    border-radius: 10px;
+}
+
+.fun_area button {
+    display: block;
+    width: 150px;
+    height: 30px;
+    background-color: transparent;
+    color: white;
+    margin: 15px 8px 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    border-image: initial;
+    border-radius: 10px;
+}
+
+.fun_area select {
+    width: 150px;
+    height: 30px;
+    margin: 8px 8px 8px;
+    border-radius: 10px;
+}
+
+#hide_fun {
+    display: none;
+}
+
+#query_btns {
+    position: relative;
+    top: 0;
+    left: -40px;
+}
+
+.scroll-box {
+    position: relative;
+    left: 10px;
+    width: 290px; /* 设置盒子的宽度 */
+    height: 390px; /* 设置盒子的高度 */
+    border: 3px solid #ccc; /* 添加边框样式 */
+    overflow: auto; /* 添加滚动条 */
+}
+
+.title-bar {
+    padding: 5px; /* 添加内边距 */
+    font-weight: bold; /* 设置标题栏文本为粗体 */
+    position: relative;
+    top: 0;
+    left:11px;
+    width: 91%;
+    background-color: #148cbd;
+    text-align: center;
+
+}
+
+.content {
+    padding: 10px; /* 添加内容区域的内边距 */
+}
+
+#stations {
+    color: #f800f0
+}
+
+#lines {
+    color: #ffac38
+}

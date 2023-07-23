@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    display: block;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    clear: both;
+    display: block;
+    content: "";
+    height: 0;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 40px;
+}
+
+li {
+    list-style: none;
+}
+
+button{
+    width: 150px;
+    height: 30px;
+    background-color: transparent;
+    color: white;
+    margin: 15px 8px 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    border-image: initial;
+    border-radius: 10px;
+}
+
+/*功能面板的css*/
+#main {
+    position: absolute;
+    width: 100%;
+    top: 80px;
+    height: 950px;
+    /*border: solid burlywood;*/
+}

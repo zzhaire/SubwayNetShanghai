@@ -1,0 +1,8 @@
+#subway_map{
+    position: relative;
+    width:1635px;
+    height: 945px;
+    float: left;
+    margin: 0 0 0 405px;
+    background-color: #9ca9a9;
+}
