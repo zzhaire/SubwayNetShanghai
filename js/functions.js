@@ -165,15 +165,17 @@ var functions = new Vue({
 
         /** 加载最短路径 **/
         show_info() {
+            let path = [];
             if (graph.nodes.get(this.begin_node) && graph.nodes.get(this.end_node)) {
                 // console.log(graph.nodes);
                 graph.get_path(this.begin_node, this.end_node);
                 for( let item of graph.path){
                     let line = graph.nodes.get(item).pass_line;
                     console.log(line);
-                    this.path.detail.push({name:item , of_line:line});
+                    path.push({name:item , of_line:line});
                 }
                 this.path.show = 1;
+                this.path.detail = path;
                 console.log(this.path.detail);
             } else {
                 alert("未在图中找到相关的站点");
