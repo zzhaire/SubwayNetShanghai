@@ -114,7 +114,9 @@ var functions = new Vue({
                 if (graph.lines.has(this.line.name)) {
                     alert(`已经存在${this.line.name}线路`);
                 } else {
-                    graph.add_line(this.line.name, this.line.color);
+                    let color = this.line.color.substring(1);
+                    console.log(color);
+                    graph.add_line(this.line.name, color);
                     alert(`添加${this.line.name}成功`);
                     this.update_select();
                     this.line.name = '';
