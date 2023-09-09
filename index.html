@@ -91,10 +91,12 @@
                     <div v-if="path.show===1">
                         <div class="title-bar">换乘方案</div>
                         <div class="scroll-box">
-                            <div class="content">(起点)
-                            <span v-for="items in path.detail" id="stations">{{ items.name }}
-                                <span v-for="line in items.of_line" id="lines">{{ line }},</span>
-                            </span> (终点)
+                            <!-- <div class="content">(起点) -->
+                            <span v-for="items in simple" >
+                                <span id="stations">{{ items.name1 }} --> {{ items.name2 }}</span>
+                                <span id="lines"> {{ items.line }} ↓</span>
+                                <!-- <span v-for="line in items.of_line" id="lines" style="color: ;">{{ line }},</span> -->
+                            <!-- </span> (终点) -->
                             </div>
                         </div>
                     </div>

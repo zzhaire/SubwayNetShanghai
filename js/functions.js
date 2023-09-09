@@ -31,7 +31,8 @@ var functions = new Vue({
         path: {
             show: 0,
             detail: [],
-        }
+        },
+        simple: [],
     },
     created() {
         this.update_select();
@@ -128,7 +129,7 @@ var functions = new Vue({
         update_select() {
             this.lines = [];
             for (const line of graph.lines.values()) {
-                this.lines.push({name: line.name, color: line.color})
+                this.lines.push({ name: line.name, color: line.color })
             }
         },
 
@@ -166,15 +167,15 @@ var functions = new Vue({
         },
 
         /** 加载最短路径 **/
-        show_info() {
+        show_info2() {
             let path = [];
             if (graph.nodes.get(this.begin_node) && graph.nodes.get(this.end_node)) {
                 // console.log(graph.nodes);
                 graph.get_path(this.begin_node, this.end_node);
-                for( let item of graph.path){
+                for (let item of graph.path) {
                     let line = graph.nodes.get(item).pass_line;
                     console.log(line);
-                    path.push({name:item , of_line:line});
+                    path.push({ name: item, of_line: line });
                 }
                 this.path.show = 1;
                 this.path.detail = path;
@@ -184,36 +185,74 @@ var functions = new Vue({
             }
 
         },
-        show_path() {
+        show_info() {
+            let path = [];
             if (graph.nodes.get(this.begin_node) && graph.nodes.get(this.end_node)) {
-                console.log(this.begin_node, this.end_node);
-                draw_path(graph.path);
-            }else{
+                // console.log(graph.nodes);
+                graph.get_path(this.begin_node, this.end_node);
+                for (let item of graph.path) {
+                    let line = graph.nodes.get(item).pass_line;
+                    // console.log(line);
+                    path.push({ name: item, of_line: line });
+                }
+                this.path.show = 1;
+                this.path.detail = path;
+                this.simple.splice(0, this.simple.length);
+                for (let i = 0; i < graph.path.length - 1;) {
+                    let st = i;
+                    let ed = i + 1;
+                    let line_set1 = graph.nodes.get(graph.path[i]).pass_line;
+                    let line_set2 = graph.nodes.get(graph.path[i + 1]).pass_line;
+                    let line_common = new Set([...line_set1].filter(x => line_set2.has(x)));
+                    // console.log(line_common);
+                    for (let j = i + 2; j < graph.path.length; j++) {
+                        line_set1 = new Set(line_set2);
+                        line_set2 = graph.nodes.get(graph.path[j]).pass_line;
+                        let ne_common = new Set([...line_common].filter(x => line_set2.has(x)));
+                        if (ne_common.size === 0) break;
+                        else line_common = new Set(ne_common), ed = j;
+                    }
+                    const iterator = line_common.values();
+                    const firstElement = iterator.next().value;
+                    let nowseg = {'line' : firstElement,  'name1':graph.path[st], 'name2': graph.path[ed]};
+                    this.simple.push(nowseg);
+                    i = ed;
+                }
+                console.log(this.simple);
+            } else {
                 alert("未在图中找到相关的站点");
             }
+        },
+            show_path() {
+                if (graph.nodes.get(this.begin_node) && graph.nodes.get(this.end_node)) {
+                    console.log(this.begin_node, this.end_node);
+                    draw_path(graph.path);
+                } else {
+                    alert("未在图中找到相关的站点");
+                }
+            }
         }
-    }
-})
+    })
 
 var bars = new Vue({
-    el:"#tab",
-    data:{
+    el: "#tab",
+    data: {
 
     },
     methods: {
-        big(){
-            ZOOM.scaleBy(SVG,1.1);
+        big() {
+            ZOOM.scaleBy(SVG, 1.1);
             d3.zoomTransform(SVG.node());
         },
-        small(){
-            ZOOM.scaleBy(SVG,0.9);
+        small() {
+            ZOOM.scaleBy(SVG, 0.9);
             d3.zoomTransform(SVG.node());
         },
-        clear(){
+        clear() {
             graph.clean_data();
             draw_map();
         },
-        reload(){
+        reload() {
             graph.clean_data(); //将地图清空
             graph.load_data(); //重新读取完整数据
             draw_map();
